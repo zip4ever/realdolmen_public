@@ -1,0 +1,19 @@
+<dataset>
+    <passenger id="1" firstName="Buddy" lastName="Holly" street="Vaucampslaan" number="24" city="Huizingen" postalCode="1645"/>
+    <passenger id="2" firstName="Big" lastName="Bopper"/>
+    <passenger id="3" firstName="Richie" lastName="Valens"/>
+    <passenger id="4" firstName="Roger" lastName="Peterson"/>
+
+    <flight dtype="InternationalFlight" id="1" number="FL-27B.INT"/>
+    <flight dtype="InternationalFlight" id="2" number="FL-28B.INT"/>
+    <flight dtype="DomesticFlight" id="3" number="FL-29B.D"/>
+    <flight dtype="DomesticFlight" id="4" number="FL-30B.D"/>
+    <flight dtype="InternationalFlight" id="5" number="FL-31B.INT"/>
+
+    <ticket id="1" price="150" passenger_id="3" flight_id="1"/>
+    <ticket id="2" price="250" passenger_id="3" flight_id="2"/>
+    <ticket id="3" price="300" passenger_id="1" flight_id="2"/>
+    <ticket id="4" price="200" passenger_id="2" flight_id="2"/>
+    <ticket id="5" price="100" passenger_id="4" flight_id="2"/>
+    <ticket id="6" price="350" passenger_id="4" flight_id="2"/>
+</dataset>
