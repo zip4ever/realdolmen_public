@@ -3,6 +3,8 @@ package com.realdolmen.course.domain;
 import org.hibernate.type.EnumType;
 import org.joda.time.DateTime;
 import org.joda.time.Years;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.beans.Transient;
@@ -13,6 +15,8 @@ import java.util.Date;
  */
 @Entity
 public class Passenger {
+
+    private static Logger logger = LoggerFactory.getLogger(Passenger.class);
 
     public static enum PassengerType {
         OCCASIONAL, REGULAR;
@@ -46,6 +50,7 @@ public class Passenger {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastFlight;
 
+    private Date lastUpdated;
 
     public Passenger() {
     }
@@ -145,5 +150,18 @@ public class Passenger {
 
     public void setLastFlight(Date lastFlight) {
         this.lastFlight = lastFlight;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    @PostLoad
+    @PostPersist
+    @PostUpdate
+    public void alterLastUpdated() {
+        logger.info("Saving passenger ... ");
+        lastUpdated = new Date();
+        logger.info("Date set to : " + lastUpdated);
     }
 }
