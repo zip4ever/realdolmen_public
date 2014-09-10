@@ -1,5 +1,6 @@
 package com.realdolmen.course;
 
+import com.realdolmen.course.domain.Address;
 import com.realdolmen.course.domain.Passenger;
 import org.hibernate.PropertyValueException;
 import org.junit.Assert;
@@ -60,8 +61,10 @@ public class PassengerPersistenceTest extends DataSetPersistenceTest{
         Passenger passenger = new Passenger("00000000005", "Employee", "A", new Date(), Passenger.PassengerType.OCCASIONAL);
         entityManager().persist(passenger);
         long id = passenger.getId();
+        entityManager().flush();
+        entityManager().clear();
         Passenger managed = entityManager().find(Passenger.class, id);
-        Assert.assertEquals(passenger, managed);
+        Assert.assertEquals("00000000005", managed.getSsn());
     }
 
     @Test
@@ -72,5 +75,29 @@ public class PassengerPersistenceTest extends DataSetPersistenceTest{
         entityManager().flush();
         entityManager().remove(passenger);
         Assert.assertEquals(null, entityManager().find(Passenger.class, id));
+    }
+
+    @Test
+    public void testAddPreferences() throws Exception {
+        Passenger passenger = entityManager().find(Passenger.class, 1L);
+        passenger.addPreference("Not near wing");
+        passenger.addPreference("Preferable seat at tail of plane");
+        entityManager().persist(passenger);
+        entityManager().flush();
+        entityManager().clear();
+        passenger = entityManager().find(Passenger.class, 1L);
+        Assert.assertEquals(2, passenger.getPreferences().size() );
+    }
+
+    @Test
+    public void testAddAddress() throws Exception {
+        Passenger passenger = entityManager().find(Passenger.class, 1L);
+        Address address = new Address("Zondernaamstraat", null, "Gent", "9000", "België" );
+        passenger.setAddress( address );
+        entityManager().persist(address);
+        entityManager().flush();
+        entityManager().clear();
+        passenger = entityManager().find(Passenger.class, 1L);
+        Assert.assertEquals(address.getStreet1(), passenger.getAddress().getStreet1());
     }
 }

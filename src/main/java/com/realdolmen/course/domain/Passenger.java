@@ -8,7 +8,9 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.beans.Transient;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by KDAAU95 on 8/09/2014.
@@ -52,6 +54,15 @@ public class Passenger {
 
     private Date lastUpdated;
 
+    @ElementCollection
+    private List<String> preferences;
+
+    @OneToMany(mappedBy = "passenger")
+    private List<Ticket> tickets = new ArrayList<Ticket>();
+
+    @OneToOne
+    private Address address;
+
     public Passenger() {
     }
 
@@ -67,6 +78,15 @@ public class Passenger {
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.passengerType = passengerType;
+    }
+
+    public Passenger(String ssn, String firstName, String lastName, Date dateOfBirth, PassengerType passengerType, Address address) {
+        this.ssn = ssn;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.passengerType = passengerType;
+        this.address = address;
     }
 
     public Passenger(String ssn, String firstName, String lastName, int frequentFlyerMiles) {
@@ -154,6 +174,46 @@ public class Passenger {
 
     public Date getLastUpdated() {
         return lastUpdated;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public List<String> getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(List<String> preferences) {
+        this.preferences = preferences;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void addTicket(Ticket ticket) {
+        tickets.add(ticket);
+    }
+
+    public void removeTicket(Ticket ticket) {
+        tickets.remove(ticket);
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public void addPreference(String preference) {
+        preferences.add(preference);
     }
 
     @PostLoad

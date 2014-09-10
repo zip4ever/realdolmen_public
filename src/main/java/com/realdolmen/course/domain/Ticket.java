@@ -1,10 +1,10 @@
 package com.realdolmen.course.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by KDAAU95 on 9/09/2014.
@@ -19,6 +19,12 @@ public class Ticket {
     private BigDecimal price;
     private Date dateOfDeparture;
     private String destination;
+
+    @ManyToOne
+    private Passenger passenger;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Flight flight;
 
     public Ticket() {
     }
@@ -59,5 +65,17 @@ public class Ticket {
 
     public void setDestination(String destination) {
         this.destination = destination;
+    }
+
+    public Passenger getPassenger() {
+        return passenger;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }
