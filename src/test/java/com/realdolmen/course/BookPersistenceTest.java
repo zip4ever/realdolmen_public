@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 /**
  * Created by KDAAU95 on 8/09/2014.
  */
-public class BookPerstinceTest extends PersistenceTest {
+public class BookPersistenceTest extends PersistenceTest {
 
     @Test
     public void testBookCanBePersisted() throws Exception {

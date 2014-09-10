@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by KDAAU95 on 9/09/2014.
  */
-public class TicketTest extends PersistenceTest {
+public class TicketPersistenceTest extends PersistenceTest {
 
     @Test
     public void testCreate() throws Exception {
