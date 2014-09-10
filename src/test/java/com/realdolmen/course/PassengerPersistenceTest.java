@@ -14,7 +14,7 @@ import java.util.Date;
 /**
  * Created by KDAAU95 on 8/09/2014.
  */
-public class PassengerPersistenceTest extends PersistenceTest{
+public class PassengerPersistenceTest extends DataSetPersistenceTest{
 
     @Rule
     public ExpectedException expector = ExpectedException.none();
