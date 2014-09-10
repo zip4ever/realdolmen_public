@@ -1,10 +1,12 @@
 package com.realdolmen.course;
 
+import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.ext.mysql.MySqlDataTypeFactory;
 import org.dbunit.operation.DatabaseOperation;
 import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.junit.Before;
@@ -27,6 +29,10 @@ public class DataSetPersistenceTest extends PersistenceTest {
         // create connection
         Connection jdbcConnection = DriverManager.getConnection("jdbc:mysql://localhost:3307/test", "root", "password");
         IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
+
+        // set type to avoid warnings
+        DatabaseConfig dbConfig = connection.getConfig();
+        dbConfig.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, new MySqlDataTypeFactory());
 
         // get dataset
         IDataSet dataSet = new FlatXmlDataSetBuilder().build(new File("C:\\jee610-software\\workspace\\jpa-standalone\\src\\test\\resources\\data.xml"));
