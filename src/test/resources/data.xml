@@ -1,5 +1,6 @@
 <dataset>
 <passenger id="1" firstName="George" lastName="Orwell" dateOfBirth="2014-09-10" ssn="12345" age="10" frequentFlyerMiles="10" passengerType="REGULAR"/>
 <passenger id="2" firstName="John" lastName="Doe" dateOfBirth="2014-09-7" ssn="654321" age="12" frequentFlyerMiles="20" passengerType="OCCASIONAL"/>
+<!-- Added to delete records on passenger_preferences first -->
 <passenger_preferences/>
 </dataset>
