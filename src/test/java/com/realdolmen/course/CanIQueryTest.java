@@ -27,7 +27,7 @@ public class CanIQueryTest extends PersistenceTest {
             entityManager().persist(passenger);
         }
         entityManager().flush();
-        Query query = entityManager().createQuery("Select p from Passenger p join Ticket t where t.price > (select avg(t2.price) from Ticket t2)");
+        Query query = entityManager().createQuery("Select p from Passenger p join p.tickets t where t.price > (select avg(t2.price) from Ticket t2)");
         Assert.assertNotNull(query.getResultList());
     }
 }
