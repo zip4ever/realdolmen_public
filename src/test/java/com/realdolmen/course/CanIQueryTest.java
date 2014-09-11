@@ -19,15 +19,21 @@ public class CanIQueryTest extends PersistenceTest {
         BigDecimal min = new BigDecimal(0);
         BigDecimal max = new BigDecimal(1000);
         for( int i=0; i<10; i++) {
-            BigDecimal randomBigDecimal = min.add(new BigDecimal(Math.random()).multiply(max.subtract(min)));
-            randomBigDecimal = randomBigDecimal.setScale(2,BigDecimal.ROUND_HALF_UP);
-            Ticket ticket = new Ticket(randomBigDecimal, new Date(), "Destination " + i);
-            Passenger passenger = new Passenger("" + i, "Passenger" , "" + i, new Date(), Passenger.PassengerType.OCCASIONAL);
-            passenger.addTicket(ticket);
-            entityManager().persist(passenger);
+            createPassengerAndTicket(min, max, i);
         }
         entityManager().flush();
         Query query = entityManager().createQuery("Select distinct p from Passenger p join p.tickets t where t.price > (select avg(t2.price) from Ticket t2)");
-        Assert.assertNotNull(query.getResultList());
+        Assert.assertTrue(query.getResultList().size() > 0);
+    }
+
+    private void createPassengerAndTicket(BigDecimal min, BigDecimal max, int i) {
+        BigDecimal randomBigDecimal = min.add(new BigDecimal(Math.random()).multiply(max.subtract(min)));
+        randomBigDecimal = randomBigDecimal.setScale(2,BigDecimal.ROUND_HALF_UP);
+        Ticket ticket = new Ticket(randomBigDecimal, new Date(), "Destination " + i);
+        Passenger passenger = new Passenger("" + i, "Passenger" , "" + i, new Date(), Passenger.PassengerType.OCCASIONAL);
+        entityManager().persist(passenger);
+        ticket.setPassenger(passenger);
+        passenger.addTicket(ticket);
+        entityManager().persist(ticket);
     }
 }

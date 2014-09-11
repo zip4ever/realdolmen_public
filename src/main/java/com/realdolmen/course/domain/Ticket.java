@@ -78,4 +78,8 @@ public class Ticket {
     public void setFlight(Flight flight) {
         this.flight = flight;
     }
+
+    public void setPassenger(Passenger passenger) {
+        this.passenger = passenger;
+    }
 }
